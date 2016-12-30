@@ -1,7 +1,7 @@
-(function (){
+(function () {
 'use strict';
 
-angular.module('ShoppingListApp',[])
+angular.module('ControllerAsApp',[])
 .controller('ShoppingListController1',ShoppingListController1)
 .controller('ShoppingListController2',ShoppingListController2)
 .factory('ShoppingListFactory',ShoppingListFactory);
@@ -19,7 +19,7 @@ function ShoppingListController1(ShoppingListFactory) {
    list1.itemQuantity="";
 
   list1.addItem = function (){
-    ShoppingListFactory.addItem(list1.itemName,list1.itemQuantity);
+    shoppingList.addItem(list1.itemName,list1.itemQuantity);
   }
 
   list1.removeItem=function(itemIndex){
@@ -39,15 +39,15 @@ function ShoppingListController2(ShoppingListFactory) {
 
   list2.addItem = function (){
    try{
-    ShoppingListFactory.addItem(list2.itemName,list2.itemQuantity);
+    shoppingList.addItem(list2.itemName,list2.itemQuantity);
   }
   catch(error){
-    list2.errorMessage=error.Message;
-  }
-  list2.removeItem=function(itemIndex){
-    shoppingList.removeItem(itemIndex);
+    list2.errorMessage=error.message;
   }
 }
+  list2.removeItem=function(itemIndex){
+    shoppingList.removeItem(itemIndex);
+  };
 }
 function ShoppingListService(maxItems) {
 
@@ -67,13 +67,13 @@ service.addItem=function(itemName,quantity){
 else {
   throw new Error("Max items(" + maxItems + ") reached.");
 }
+};
 service.removeItem=function(itemIndex){
   items.splice(itemIndex,1);
 };
 service.getItems=function(){
   return items;
 };
-}
 }
 function ShoppingListFactory(){
   var factory = function(maxItems){
